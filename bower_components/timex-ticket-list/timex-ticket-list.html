@@ -1,0 +1,74 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.js"></script>
+
+
+<polymer-element name="timex-ticket-list" id="mainList">
+
+  <template>
+
+
+
+  </template>
+
+  <script>
+    Polymer("timex-ticket-list",{
+
+    	ticketList : [],
+
+    	keys: function(input){
+    		return Object.keys(input);
+    	},
+   
+      go: function() {
+      	
+      	var tickets = Parse.Object.extend("Tickets");
+		var query = new Parse.Query(tickets);
+		query.equalTo("assignedTo", app.currentUser);
+		query.notEqualTo("status", "CLOSED");
+		query.notEqualTo("status", "RESOLVED");
+		query.ascending("status");
+		//query.limit(200);
+		query.find({
+			success: function (results) {
+				//$("#spinner").remove();
+				var ind = 0;
+				for (var i = 0; i < results.length; i++) {
+
+					var object = results[i];
+
+					switch (object.get('status')) {
+						case "ONHOLD":
+							var htmlBuilder = "<tr class='holder warning'>";
+
+							break;
+						case "BLOCKINGISSUES":
+							var htmlBuilder = "<tr class='holder error'>";
+							break;
+						case "AWAITINGINPUT":
+							var htmlBuilder = "<tr class='holder info'>";
+							break;
+						default:
+							var htmlBuilder = "<tr class='holder'>";
+
+							break;
+
+					}
+          var originalDate = moment(object.get("deadline"),"YYYYMMDD");
+          console.log(originalDate);
+          var newDater = originalDate.format("DD MMM YYYYY");
+					htmlBuilder += "<td><a href='#' onClick='editTicket(" + JSON.stringify(object) + ")'>" + object.get("subject") + " || <span style='color:#999999;font-variant: small-caps'>"+object.get("apiProject")+" | "+object.get("apiBreakdown")+"</span></a></td><td>" + object.get("client") + "</td><td>" + newDater + "</td><td>" + object.get("status") + "</a></td></tr>";
+
+					$("#holder").append(htmlBuilder);
+
+				}
+			},
+			error: function (error) {
+				//alert("Error: " + error.code + " " + error.message);
+			}
+		});
+
+}
+      
+    });
+  </script>
+
+</polymer-element>

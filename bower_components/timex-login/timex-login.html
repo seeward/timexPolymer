@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+
+
+<polymer-element name="timex-login">
+  <template>
+    <style>
+      :host {
+        font-family: sans-serif;
+      }
+    </style>
+   <section id="loginPanelElem" layout vertical>
+<paper-input id="mEmail" label="Username:" ></paper-input>
+<paper-input type="password" id="mPassword" label="Password:" ></paper-input>
+<paper-button id="submit" on-tap="{{login}}" raised>Submit</paper-button>
+  </section>
+  </template>
+  <script>
+    Polymer('timex-login', {
+      
+login: function() {
+    mEmail = $("#mEmail").val();
+    mPassword = $("#mPassword").val();
+    Parse.User.logIn("christian.mccabe@steltix.com", "Artworker#1", {
+      success: function (user) {
+        
+        
+        $("#loginForm").hide();
+        $("#adder").show();
+        $("#ticketList").show();
+        
+        app.userProfile = user;
+       
+        //alert(currentUser);
+
+        app.userProfile = user;
+        app.currentUser = user.get('username');
+         document.querySelector("#tList").go();
+        console.log(app.currentUser+" is logged in...");
+      },
+      error: function (user, error) {
+        alert("There was an error logging in.");
+      }
+    });
+},
+      ready: function() {
+        this.userProfile = {};
+      }
+    });
+  </script>
+</polymer-element>

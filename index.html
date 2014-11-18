@@ -8,62 +8,56 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <script src="bower_components/platform/platform.js"></script>
-
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/parse.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   <link rel="import" href="bower_components/core-icons/core-icons.html">
   <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
   <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="bower_components/paper-button/paper-button.html">
   <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+  <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
   <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/timex-ticket-list/timex-ticket-list.html">
   <link rel="import" href="bower_components/paper-fab/paper-fab.html">
   <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
   <link rel="import" href="bower_components/paper-toast/paper-toast.html">
+  <link rel="import" href="bower_components/timex-login/timex-login.html">
 
   <link rel="stylesheet" href="styles.css">
 </head>
+<style>
+#ticketList, #adder, #addTicket, #ticketDetails {
+  display: none;
+}
 
-<body unresolved>
+#holder {
+  width:100%;
+}
+
+</style>
+<body fullbleed layout vertical>
+ 
   <core-toolbar>
     <paper-icon-button icon="menu"></paper-icon-button>
-    <span flex>timexPolyApp toolbar</span>
-    <paper-fab icon="add"></paper-fab>
+    <span flex>time.X</span>
+    <paper-fab icon="add" id='adder'></paper-fab>
   </core-toolbar>
-
-  <section>
-    <p>A simple Polymer
-      <a href="http://www.polymer-project.org/docs/elements/paper-elements.html">
-      paper elements</a> example that demonstrates using <code>&lt;core-toolbar&gt;,
-      &lt;paper-button&gt;, &lt;paper-checkbox&gt;, &lt;paper-icon-button&gt;,
-      &lt;paper-fab&gt;, &lt;paper-tabs&gt;</code>, and <code>&lt;paper-toast&gt;</code>.
-    </p>
-    <paper-checkbox label="Got it!"></paper-checkbox>
-  </section>
-
-  <section>
-    <paper-tabs selected="0">
-      <paper-tab>Tab one</paper-tab>
-      <paper-tab>Tab two</paper-tab>
-      <paper-tab>Tab three</paper-tab>
-    </paper-tabs>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-  </section>
-
-  <section>
-    <template id="toastGroup" is="auto-binding">
-      <paper-button raised right on-click="{{showToast}}">
-        Show Toast
-      </paper-button>
-      <paper-toast id="toast" text="Sample toast here."></paper-toast>
-    </template>
-  </section>
   
-  <script src="main.js"></script>
-</body>
-</html>
+
+  <section id='loginForm'>
+    <timex-login></timex-login>
+  </section>
+
+  <section id='ticketList'><timex-ticket-list id="tList"></timex-ticket-list>
+<table id="holder" class="table table-striped"></table>
+
+
+  </section>
+  <section id='addTicket'></section>
+  <section id='ticketDetails'></section>
+  
+  
+  <script src="main.js"></script> </body> </html>
