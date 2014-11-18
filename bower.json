@@ -1,0 +1,25 @@
+{
+  "name": "timex polymer app",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "platform": "Polymer/platform#master",
+    "paper-elements": "Polymer/paper-elements#master"
+  },
+  "version": "0.0.0",
+  "authors": [
+    "seeward <seeward@gmail.com>"
+  ],
+  "main": "index.html",
+  "moduleType": [
+    "yui"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
